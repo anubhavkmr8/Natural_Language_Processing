@@ -1,3 +1,6 @@
+import pandas as pd
+from nltk.translate.bleu_score import corpus_bleu
+import numpy as np
 eng2hin_vowels = {
     "a": "अ",
     "A": "आ",
@@ -61,6 +64,7 @@ eng2hin_consonants = {
     "R": "ष",
     "s": "स",
     "h": "ह",
+    "z": "ज"
 }
 
 eng2hin_all = {
@@ -86,7 +90,11 @@ def eng2hin(english_string):
     english_string += " "
     hindi_string = []
     for i, char in enumerate(english_string[:-1]):
-        if is_vowel_char(char):
+
+        # If the current character is '“' or '”' the skip
+        if char == "“" or char == "”":
+            continue
+        elif is_vowel_char(char):
 
             # If second last character of string is "a" then this makes aa sound.
             if char == "a" and i == len(english_string) - 2:
@@ -111,4 +119,15 @@ def eng2hin(english_string):
     return "".join(hindi_string)
 
 
-print(eng2hin(input()))
+dataset = pd.read_excel('English-Hindi.xlsx')
+X = dataset.iloc[1:68922, 1].values
+y = dataset["Hindi"]
+y = y[0:68921]
+y_pred = []
+for english_string in X:
+    y_pred.append(eng2hin(english_string))
+
+
+score = corpus_bleu(y_pred[:68722], y[:68722], weights=(1, 0, 0, 0))
+print(score)
+
