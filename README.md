@@ -16,15 +16,13 @@ Else it is mapped with the  corresponding eng2hin_vowels_half dictionary charact
 Step 3 - If the current character is not vowel it is mapped with corresponding character either present either in eng2hin_sonorants or eng2hin_consonents dictionary. Here we also check if this character is not followed by any vowel then this character is treated as half. (Bachcha => बच्चा).
 
 
-
-For SMT we needed the Linux environment exclusively as windows subsystem for linux doesn’t support hindi language instead of showing hindi words it just shows blank boxes.
-
+For SMT-
 I installed the moses and splitted the parallel corpus into separate en-hi.mined.hi and en-hi.mined.en. https://github.com/anubhavkmr8/Natural_Language_Processing/blob/master/nlp_assignment.rar
 
 Did the Tokenisation, truecasing and cleaning.
 Trained the language model and translation system.
 For testing we didn’t have a separate dataset so didn’t tune.
-And then testing was done but as already mentioned about the wsl problem could not verify the result.
+And then testing was done.
 
 Commands for all these steps are - https://github.com/anubhavkmr8/Natural_Language_Processing/blob/master/smt.txt
 
